@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+   <Description about="urn:mozilla:install-manifest"
+                em:name="cors everywhere"
+                em:description="enable cors everywhere"
+                em:creator="spenibus"
+                em:id="cors-everywhere@spenibus"
+                em:version="20150110-0334"
+                em:homepageURL="http://spenibus.net">
+
+      <em:targetApplication><!-- Firefox -->
+         <Description em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                      em:minVersion="1.4"
+                      em:maxVersion="99" />
+      </em:targetApplication>
+
+   </Description>
+</RDF>

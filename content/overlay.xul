@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="chrome://global/skin/"?>
+<?xml-stylesheet type="text/css" href="chrome://cors-everywhere-spenibus/content/overlay.css"?>
+
+<!DOCTYPE overlay>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+   <script type="application/x-javascript" src="chrome://cors-everywhere-spenibus/content/overlay.js" />
+
+   <!-- Firefox -->
+   <toolbarpalette id="BrowserToolbarPalette">
+
+      <!-- button: toggle -->
+      <toolbarbutton
+         id="spenibus_cors_everywhere_button_toggle"
+         tooltiptext="cors everywhere (green: enabled)"
+         class="toolbarbutton-1 chromeclass-toolbar-additional">
+         <label value="CorsE"/>
+      </toolbarbutton>
+
+   </toolbarpalette>
+</overlay>
