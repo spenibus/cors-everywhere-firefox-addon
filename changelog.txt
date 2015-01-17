@@ -1,2 +1,6 @@
+2015-01-17 01:37 +0000
+- fixed issue with mismatching headers
+
+
 2015-01-10 03:34 +0000
 - initial release

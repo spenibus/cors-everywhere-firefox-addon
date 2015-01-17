@@ -86,7 +86,21 @@ var spenibus_corsEverywhere = {
       }
 
 
-      // check header
+      // check origin header
+      // was throwing an exception necessary if header is not set, mozilla ?
+      var origin;
+      try {
+         origin = httpChannel.getRequestHeader('Origin');
+      }
+      catch(e) {
+      }
+
+      if(!origin) {
+         origin = '*';
+      }
+
+
+      // check response header
       // was throwing an exception necessary if header is not set, mozilla ?
       var header;
       try {
@@ -103,7 +117,7 @@ var spenibus_corsEverywhere = {
 
 
       // force cross origin
-      httpChannel.setResponseHeader('Access-Control-Allow-Origin', '*', false);
+      httpChannel.setResponseHeader('Access-Control-Allow-Origin', origin, false);
    }},
 
 
