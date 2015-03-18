@@ -7,3 +7,6 @@ The addon's functionality can be toggled with the included button and is
 disabled by default.
 
 Intended for developers. Use at your own risk.
+
+Packaged xpi releases here:
+http://spenibus.net/files/gitbin/cors-everywhere-firefox-addon/
