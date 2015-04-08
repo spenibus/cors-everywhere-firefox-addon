@@ -10,3 +10,6 @@ Intended for developers. Use at your own risk.
 
 Packaged xpi releases here:
 http://spenibus.net/files/gitbin/cors-everywhere-firefox-addon/
+
+prefs on "extensions.spenibus_corsEverywhere."
+   enabledAtStartup (boolean) enables this addon on startup

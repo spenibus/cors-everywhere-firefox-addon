@@ -25,17 +25,39 @@ var spenibus_corsEverywhere = {
       spenibus_corsEverywhere.observerService =
          Components.classes["@mozilla.org/observer-service;1"]
          .getService(Components.interfaces.nsIObserverService);
+
+
+      // prefs service
+      spenibus_corsEverywhere.prefs =
+         Components.classes["@mozilla.org/preferences-service;1"]
+         .getService(Components.interfaces.nsIPrefService)
+         .getBranch("extensions.spenibus_corsEverywhere.");
+
+
+      // enabled at startup
+      // mozilla, you're just addicted to exceptions
+      try {
+         if(spenibus_corsEverywhere.prefs.getBoolPref('enabledAtStartup')) {
+            spenibus_corsEverywhere.toggle(true);
+         }
+      } catch(e) {}
    },
 
 
 
 
    /****************************************************************** toggle */
-   toggle : function() {
+   toggle : function(state) {
 
 
-      // toggle
-      spenibus_corsEverywhere.enabled = !spenibus_corsEverywhere.enabled;
+      // set state by input
+      if(typeof state === 'boolean') {
+         spenibus_corsEverywhere.enabled = state;
+      }
+      // set state by toggle
+      else {
+         spenibus_corsEverywhere.enabled = !spenibus_corsEverywhere.enabled;
+      }
 
 
       // notification topic
@@ -91,9 +113,7 @@ var spenibus_corsEverywhere = {
       var origin;
       try {
          origin = httpChannel.getRequestHeader('Origin');
-      }
-      catch(e) {
-      }
+      } catch(e) {}
 
       if(!origin) {
          origin = '*';
@@ -105,9 +125,7 @@ var spenibus_corsEverywhere = {
       var header;
       try {
          header = httpChannel.getResponseHeader('Access-Control-Allow-Origin');
-      }
-      catch(e) {
-      }
+      } catch(e) {}
 
 
       // abort if header has cors already

@@ -1,3 +1,7 @@
+2015-04-08 08:48 +0000
+- added pref: enabledAtStartup
+
+
 2015-03-18 23:40 +0000
 - fixed wrong date in version and changelog
 
