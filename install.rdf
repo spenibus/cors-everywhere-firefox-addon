@@ -8,7 +8,7 @@
                 em:description="enable cors everywhere"
                 em:creator="spenibus"
                 em:id="cors-everywhere@spenibus"
-                em:version="20150408-0848"
+                em:version="20150509-1306"
                 em:homepageURL="http://spenibus.net">
 
       <em:targetApplication><!-- Firefox -->

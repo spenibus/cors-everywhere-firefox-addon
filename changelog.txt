@@ -1,3 +1,6 @@
+2015-05-09 13:06 +0000
+- updated readme
+
 2015-04-08 08:48 +0000
 - added pref: enabledAtStartup
 
