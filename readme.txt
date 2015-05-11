@@ -1,5 +1,8 @@
 cors everywhere
 http://spenibus.net
+https://github.com/spenibus/cors-everywhere-firefox-addon
+https://gitlab.com/spenibus/cors-everywhere-firefox-addon
+
 
 
 This is a firefox addon that allows the user to enable CORS everywhere by
