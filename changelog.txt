@@ -1,3 +1,7 @@
+2015-07-07 19:57 +0000
+- fixed version
+
+
 2015-07-07 19:48 +0000
 - made response headers more permissive
 added Access-Control-Request-Method
