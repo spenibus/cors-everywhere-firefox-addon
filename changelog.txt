@@ -1,3 +1,10 @@
+2015-07-07 19:48 +0000
+- made response headers more permissive
+added Access-Control-Request-Method
+added Access-Control-Request-Headers
+prompted by: https://github.com/thomaspurchas/cors-everywhere-firefox-addon/commit/6e1d0554121f2115211cfbef85ef186bbfd48245
+
+
 2015-05-21 22:43 +0000
 - updated readme with technical note
 

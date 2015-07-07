@@ -1,5 +1,18 @@
+/*******************************************************************************
+Docs
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+https://developer.mozilla.org/en/docs/Debugging_JavaScript#Console.log_in_Browser_Console
+*******************************************************************************/
+
+
+
+
 /*********************************************** export javacript code module */
 var EXPORTED_SYMBOLS = ["spenibus_corsEverywhere"];
+
+
+// import console
+const { console } = Components.utils.import("resource://gre/modules/devtools/Console.jsm", {});
 
 
 
@@ -101,41 +114,88 @@ var spenibus_corsEverywhere = {
    /******************************************************** observer handler */
    observerHandler : { observe : function(subject, topic, data) {
 
+
+      // request headers storage
+      var reqHeaders = {
+         'Origin'                         : null,
+         'Access-Control-Request-Method'  : null,
+         'Access-Control-Request-Headers' : null,
+      };
+
+
+/*
+      // response headers storage
+      var respHeaders = {
+         'Access-Control-Allow-Origin'      : null,
+         'Access-Control-Expose-Headers'    : null,
+         'Access-Control-Max-Age'           : null,
+         'Access-Control-Allow-Credentials' : null,
+         'Access-Control-Allow-Methods'     : null,
+         'Access-Control-Allow-Headers'     : null,
+      };
+*/
+
+
       // http interface
       var httpChannel = subject.QueryInterface(Components.interfaces.nsIHttpChannel);
-      if(httpChannel == null) {
+      if(httpChannel === null) {
          return;
       }
 
 
-      // check origin header
-      // was throwing an exception necessary if header is not set, mozilla ?
-      var origin;
-      try {
-         origin = httpChannel.getRequestHeader('Origin');
-      } catch(e) {}
+      // get request headers
+      for(var header in reqHeaders) {
 
-      if(!origin) {
-         origin = '*';
+         // was throwing an exception necessary if header is not set, mozilla ?
+         try {
+            reqHeaders[header] = httpChannel.getRequestHeader(header);
+         } catch(e) {}
       }
 
 
-      // check response header
-      // was throwing an exception necessary if header is not set, mozilla ?
-      var header;
-      try {
-         header = httpChannel.getResponseHeader('Access-Control-Allow-Origin');
-      } catch(e) {}
+/*
+      // get response headers
+      for(var header in respHeaders) {
+
+         // was throwing an exception necessary if header is not set, mozilla ?
+         try {
+            respHeaders[header] = httpChannel.getResponseHeader(header);
+         } catch(e) {}
+      }
+*/
 
 
-      // abort if header has cors already
-      if(header == '*' || header == 'null') {
-         return;
+      // set "Access-Control-Allow-Origin"
+      // prioritize "Origin" else "*"
+      httpChannel.setResponseHeader(
+         'Access-Control-Allow-Origin',
+         reqHeaders['Origin'] !== null
+            ? reqHeaders['Origin']
+            : '*',
+         false
+      );
+
+
+      // set "Access-Control-Allow-Methods"
+      if(reqHeaders['Access-Control-Request-Method'] !== null) {
+         httpChannel.setResponseHeader(
+            'Access-Control-Allow-Methods',
+            reqHeaders['Access-Control-Request-Method'],
+            false
+         );
       }
 
 
-      // force cross origin
-      httpChannel.setResponseHeader('Access-Control-Allow-Origin', origin, false);
+      // set "Access-Control-Allow-Headers"
+      if(reqHeaders['Access-Control-Request-Headers'] !== null) {
+         httpChannel.setResponseHeader(
+            'Access-Control-Allow-Headers',
+            reqHeaders['Access-Control-Request-Headers'],
+            false
+         );
+      }
+
+
    }},
 
 

@@ -5,6 +5,7 @@ https://gitlab.com/spenibus/cors-everywhere-firefox-addon
 
 
 
+
 This is a firefox addon that allows the user to enable CORS everywhere by
 altering http responses.
 
