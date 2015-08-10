@@ -196,6 +196,14 @@ var spenibus_corsEverywhere = {
       }
 
 
+      // set "Access-Control-Allow-Credentials"
+      httpChannel.setResponseHeader(
+        'Access-Control-Allow-Credentials',
+        "true",
+        false
+      );
+
+
    }},
 
 

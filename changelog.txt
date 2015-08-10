@@ -1,3 +1,11 @@
+2015-08-10 18:53 +0000
+- always set "Access-Control-Allow-Credentials" to "true"
+
+
+2015-08-10 16:57 +0000
+- readme: added description and behavior of button
+
+
 2015-07-07 19:57 +0000
 - fixed version
 
