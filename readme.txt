@@ -14,6 +14,8 @@ disabled by default. The button can be found by right clicking a toolbar and
 choosing "customize". It is labelled "CorsE" with a red background that turns
 green when enabled.
 
+A basic CORS test is available at "./content/misc/cors-everywhere-test.html".
+
 Intended for developers. Use at your own risk.
 
 Packaged xpi releases here:
