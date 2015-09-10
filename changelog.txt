@@ -1,3 +1,8 @@
+2015-09-10 12:45 +0000
+- updated readme
+- updated test page
+
+
 2015-09-10 09:51 +0000
 - restored em:maxVersion, set to 44.0
 

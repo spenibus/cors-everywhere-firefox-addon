@@ -13,8 +13,8 @@
         <ul>
             <li>This page will attempt to load "http://google.com" via xmlHttpRequest with credentials set to true.</li>
             <li>This should always fail by default</li>
-            <li>If the script reaches the readyState of "4" with an empty responseText, this presumably means CORS will have blocked the call.</li>
-            <li>Enabling the Firefox addon "cors-everywhere" should bypass this restriction.</li>
+            <li>If the script reaches the readyState of "4" with a status code of "0", this presumably means CORS will have blocked the call.</li>
+            <li>Enabling the Firefox addon "cors-everywhere" should bypass this restriction, returning readyState "4" and status "200".</li>
         </ul>
 
         <p>
@@ -29,23 +29,15 @@
         </div>
 
         <script type="text/javascript">
-var xhr = new XMLHttpRequest();
-xhr.open("get", "http://google.com", true);
-xhr.withCredentials = true;
-xhr.onreadystatechange = function(r) {
-
-    var txt = "";
-    if(this.readyState == 4) {
-        txt = document.createElement("div");
-        txt.appendChild(document.createTextNode(this.responseText));
-        txt = txt.innerHTML;
-    }
-
-    document.getElementById("response").innerHTML +=
-        "<hr />readyState: "+this.readyState+
-        "<br />responseText: "+txt;
-}
-xhr.send();
+            var xhr = new XMLHttpRequest();
+            xhr.open("get", "http://google.com", true);
+            xhr.withCredentials = true;
+            xhr.onreadystatechange = function(r) {
+                document.getElementById("response").innerHTML +=
+                    "<hr />readyState: "+r.target.readyState+
+                    "<br />status: "+r.target.status;
+            }
+            xhr.send();
         </script>
     </body>
 </html>

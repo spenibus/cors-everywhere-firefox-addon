@@ -2,6 +2,7 @@ cors everywhere
 http://spenibus.net
 https://github.com/spenibus/cors-everywhere-firefox-addon
 https://gitlab.com/spenibus/cors-everywhere-firefox-addon
+https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/
 
 
 
