@@ -1,44 +1,47 @@
 cors everywhere
-http://spenibus.net
-https://github.com/spenibus/cors-everywhere-firefox-addon
-https://gitlab.com/spenibus/cors-everywhere-firefox-addon
-https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/
+===============
+
+- Website
+  http://spenibus.net
+
+- Repositories
+  https://github.com/spenibus/cors-everywhere-firefox-addon
+  https://gitlab.com/spenibus/cors-everywhere-firefox-addon
+
+- Packaged XPI releases
+  http://spenibus.net/files/gitbin/cors-everywhere-firefox-addon/
+
+- Mozilla
+  https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/
 
 
+This is a firefox addon that allows the user to enable CORS everywhere by altering http responses.
 
+The addon's functionality can be toggled with the included button and is disabled by default. The button can be found by right clicking a toolbar and choosing "customize". It is labelled "CorsE" with a red background that turns green when enabled.
 
-This is a firefox addon that allows the user to enable CORS everywhere by
-altering http responses.
-
-The addon's functionality can be toggled with the included button and is
-disabled by default. The button can be found by right clicking a toolbar and
-choosing "customize". It is labelled "CorsE" with a red background that turns
-green when enabled.
-
-A basic CORS test is available at "./content/misc/cors-everywhere-test.html".
+A basic CORS test is available in the repository at "./_test/cors-everywhere-test.html".
 
 Intended for developers. Use at your own risk.
 
-Packaged xpi releases here:
-http://spenibus.net/files/gitbin/cors-everywhere-firefox-addon/
 
-prefs on "extensions.spenibus_corsEverywhere."
-   enabledAtStartup (boolean) enables this addon on startup
+Prefs
+-----
 
+Branch: "extensions.spenibus_corsEverywhere."
 
-*** Technical note *************************************************************
-This addon uses a javascript code module, which basically makes it run like a
-global, single instance service. In contrast, the standard method of
-instantiating addons is to load them via an "overlay" which is tied to an
-individual window. This is important because this addon registers http events
-in the observer service. Allow me to quote the documentation:
+- enabledAtStartup (boolean) enables this addon on startup
 
-"HTTP notifications are fired for all HTTP requests originating from Firefox.
-They are window-independent, so it is better to keep your observer code in
-non-chrome objects (your XPCOM service or jsm module). Otherwise you have to
-make sure to avoid duplicated work if you have 2 or more windows open."
+--------------------------------------------------------------------------------
 
-from https://developer.mozilla.org/en-US/Add-ons/Overlay_Extensions/XUL_School/Intercepting_Page_Loads
+Technical note
+--------------
+
+This addon uses a javascript code module, which basically makes it run like a global, single instance service. In contrast, the standard method of instantiating addons is to load them via an "overlay" which is tied to an individual window. This is important because this addon registers http events in the observer service. Allow me to quote the documentation:
+
+>HTTP notifications are fired for all HTTP requests originating from Firefox.
+>They are window-independent, so it is better to keep your observer code in non-chrome objects (your XPCOM service or jsm module). Otherwise you have to make sure to avoid duplicated work if you have 2 or more windows open."
+
+From https://developer.mozilla.org/en-US/Add-ons/Overlay_Extensions/XUL_School/Intercepting_Page_Loads
 
 As such, this addon runs its core logic in a global context and only uses
 overlays for the UI. This avoids 2 issues:
