@@ -1,3 +1,7 @@
+2015-09-10 09:46 +0000
+- removed em:maxVersion
+
+
 2015-08-10 19:35 +0000
 - added cors-everywhere-test.html
 
