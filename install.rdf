@@ -8,13 +8,13 @@
                 em:description="enable cors everywhere"
                 em:creator="spenibus"
                 em:id="cors-everywhere@spenibus"
-                em:version="20150910-1410"
+                em:version="20160122-2027"
                 em:homepageURL="http://spenibus.net">
 
       <em:targetApplication><!-- Firefox -->
          <Description em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                       em:minVersion="1.4"
-                      em:maxVersion="44.0" />
+                      em:maxVersion="46.0" />
       </em:targetApplication>
 
    </Description>
