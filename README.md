@@ -16,10 +16,9 @@ It is disabled by default and has a red/green background indicating the current 
 
 ## Preferences
 
-//TBD
-Branch: "extensions.spenibus_corsEverywhere."
+Branch: `extensions.spenibus_corsEverywhere`
 
-- enabledAtStartup (boolean) enables this addon on startup
+- __enabledAtStartup__ (boolean): Enables the addon on startup
    
 ## Contributing
 
