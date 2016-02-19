@@ -14,6 +14,15 @@ right clicking a toolbar and choosing "customize", then dragging the button "Cor
 toolbar. Clicking the button will allow you to toggle cross-origin resource sharing.
 It is disabled by default and has a red/green background indicating the current status.
 
+## Usage
+
+You can use the normal XMLHttpRequest API to perform cross-origin requests. However,
+make sure you are using the
+[`XHR.withCredentials`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials)
+property (jQuery: [`xhrFields`](http://api.jquery.com/jquery.ajax/)). Then cookies, authorization headers
+and TLS client certificates will be included in your request (important if you want to load a site
+where the user is logged in).
+
 ## Preferences
 
 Branch: `extensions.spenibus_corsEverywhere`
