@@ -1,4 +1,0 @@
-content   cors-everywhere-spenibus                       content/
-resource  cors-everywhere-spenibus                       content/
-style     chrome://global/content/customizeToolbar.xul   chrome://cors-everywhere-spenibus/content/style.css
-overlay   chrome://browser/content/browser.xul           chrome://cors-everywhere-spenibus/content/overlay.xul
