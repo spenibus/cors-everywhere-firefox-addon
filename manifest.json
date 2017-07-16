@@ -2,7 +2,7 @@
     "manifest_version" : 2
 
     ,"name"        : "CORS Everywhere"
-    ,"version"     : "20170716-1733"
+    ,"version"     : "20170716.1748"
     ,"author"      : "spenibus"
     ,"description" : "Bypass CORS restrictions by altering http responses."
 
