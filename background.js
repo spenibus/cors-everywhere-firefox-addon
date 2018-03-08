@@ -1,10 +1,12 @@
+//************************************************************* class definition
 let spenibus_corsEverywhere = {
 
 
     /***************************************************************************
     props
     ***/
-    enabled : false
+    enabled       : false
+    ,prefs        : {} // holds user prefs
     ,transactions : {} // contains requests/responses
 
 
@@ -18,16 +20,25 @@ let spenibus_corsEverywhere = {
             spenibus_corsEverywhere.toggle();
         });
 
-        // enabled at startup
-        let prefs = browser.storage.sync.get('enabledAtStartup');
-        prefs.then((res) => {
-            if(res.enabledAtStartup) {
+        // load prefs
+        browser.storage.sync.get([
+            'enabledAtStartup',
+            'staticOrigin',
+        ]).then((res) => {
+
+            // get prefs, set default value if n/a
+            this.prefs.enabledAtStartup = res.enabledAtStartup || false;
+            this.prefs.staticOrigin     = res.staticOrigin     || '';
+
+            if(this.prefs.enabledAtStartup) {
                 spenibus_corsEverywhere.toggle(true);
             }
+
+            // update button
+            spenibus_corsEverywhere.updateButton();
         });
 
-        // update button
-        spenibus_corsEverywhere.updateButton();
+        return this;
     }
 
 
@@ -78,6 +89,8 @@ let spenibus_corsEverywhere = {
                 spenibus_corsEverywhere.responseHandler
             );
         }
+
+        return this;
     }
 
 
@@ -87,6 +100,7 @@ let spenibus_corsEverywhere = {
     ,updateButton : function() {
         let buttonStatus = spenibus_corsEverywhere.enabled ? 'on' : 'off';
         browser.browserAction.setIcon({path:{48:'media/button-48-'+buttonStatus+'.png'}});
+        return this;
     }
 
 
@@ -154,12 +168,19 @@ let spenibus_corsEverywhere = {
             transaction.responseHeaders[name] = header;
         }
 
-        // set "access-control-allow-origin", prioritize "origin" else "*"
-        transaction.responseHeaders['access-control-allow-origin'].value =
-            transaction.requestHeaders['origin']
-            && transaction.requestHeaders['origin'].value !== null
-                ? transaction.requestHeaders['origin'].value
-                : '*';
+        // set "access-control-allow-origin"
+        // use static origin if set in prefs
+        if(bg.prefs.staticOrigin) {
+            transaction.responseHeaders['access-control-allow-origin'].value = bg.prefs.staticOrigin;
+        }
+        // default: prioritize "origin" else "*"
+        else {
+            transaction.responseHeaders['access-control-allow-origin'].value =
+                transaction.requestHeaders['origin']
+                && transaction.requestHeaders['origin'].value !== null
+                    ? transaction.requestHeaders['origin'].value
+                    : '*';
+        }
 
         // set "access-control-allow-methods"
         if(
@@ -194,7 +215,7 @@ let spenibus_corsEverywhere = {
 };
 
 
-/*******************************************************************************
-run
-***/
-spenibus_corsEverywhere.init();
+
+
+//************************************************************************** run
+var bg = spenibus_corsEverywhere.init();
