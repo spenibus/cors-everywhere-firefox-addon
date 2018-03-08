@@ -38,7 +38,7 @@ Preferences
 Available in about:addons.
 
 - `enabledAtStartup` : Enables this addon on startup
-- `staticOrigin`     : Force the value of `access-control-allow-origin`
+- `staticOrigin`     : Forces the value of the `Origin` header
 
 
 FAQ

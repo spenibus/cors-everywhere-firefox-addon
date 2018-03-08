@@ -124,6 +124,16 @@ let spenibus_corsEverywhere = {
 
         // store transaction
         spenibus_corsEverywhere.transactions[request.requestId] = transaction;
+
+        // force origin based on prefs
+        if(bg.prefs.staticOrigin) {
+            transaction.requestHeaders['origin'].value = bg.prefs.staticOrigin;
+        }
+
+        // apply modifications
+        return {
+            requestHeaders : transaction.request.requestHeaders
+        };
     }
 
 
@@ -168,19 +178,12 @@ let spenibus_corsEverywhere = {
             transaction.responseHeaders[name] = header;
         }
 
-        // set "access-control-allow-origin"
-        // use static origin if set in prefs
-        if(bg.prefs.staticOrigin) {
-            transaction.responseHeaders['access-control-allow-origin'].value = bg.prefs.staticOrigin;
-        }
-        // default: prioritize "origin" else "*"
-        else {
-            transaction.responseHeaders['access-control-allow-origin'].value =
-                transaction.requestHeaders['origin']
-                && transaction.requestHeaders['origin'].value !== null
-                    ? transaction.requestHeaders['origin'].value
-                    : '*';
-        }
+        // set "access-control-allow-origin", prioritize "origin" else "*"
+        transaction.responseHeaders['access-control-allow-origin'].value =
+            transaction.requestHeaders['origin']
+            && transaction.requestHeaders['origin'].value !== null
+                ? transaction.requestHeaders['origin'].value
+                : '*';
 
         // set "access-control-allow-methods"
         if(
