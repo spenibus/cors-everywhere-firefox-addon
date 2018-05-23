@@ -100,6 +100,13 @@ let spenibus_corsEverywhere = {
     ,updateButton : function() {
         let buttonStatus = spenibus_corsEverywhere.enabled ? 'on' : 'off';
         browser.browserAction.setIcon({path:{48:'media/button-48-'+buttonStatus+'.png'}});
+
+        // button tooltip text
+        let str = spenibus_corsEverywhere.enabled
+            ? 'CorsE enabled, CORS rules are bypassed'
+            : 'CorsE disabled, CORS rules are followed';
+        browser.browserAction.setTitle({title:str});
+
         return this;
     }
 
