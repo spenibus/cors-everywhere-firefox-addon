@@ -2,30 +2,41 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link href="style.css" type="text/css" rel="stylesheet"/>
     </head>
     <body>
-        <form>
-            <fieldset>
-                <legend>Options</legend>
-                <div>
+        <div id="options">
+            <h1>Options</h1>
+            <form>
+                <fieldset>
+                    <legend>Enabled at startup</legend>
                     <label>
-                        <input type="checkbox" id="enabledAtStartup">
-                        Enabled at startup
+                        <input type="checkbox" id="enabledAtStartup"> On
                     </label>
-                </div>
-                <hr>
-                </div>
-                    <label>
-                        <input type="text" id="staticOrigin" placeholder="disabled">
-                        Force the value of "access-control-allow-origin" (leave empty for default behaviour)
-                    </label>
-                </div>
-                <hr>
-                <div>
+                </fieldset>
+                <fieldset>
+                    <legend>Force value of "access-control-allow-origin"</legend>
+                    <div>
+                        Leave empty for default behaviour.
+                    </div>
+                    <input type="text" id="staticOrigin" placeholder="disabled">
+                </fieldset>
+                <fieldset>
+                    <legend>Activation whitelist [UNDER DEVELOPMENT]</legend>
+                    <div>
+                        Specify on which host url the addon will activate.
+                        Default is empty and activates everywhere.
+                        One filter per line.
+                        This uses regular expressions (ex: /^https?...localhost:8080\//i).
+                    </div>
+                    <textarea rows="5" style="width:100%;" placeholder="no filter"></textarea>
+                </fieldset>
+                <fieldset>
+                    <legend>Remember to save your changes</legend>
                     <button type="submit">Save</button>
-                </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        </div>
         <script src="options.js"></script>
     </body>
 </html>

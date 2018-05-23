@@ -1,0 +1,17 @@
+#options {
+    border:2px solid #AAA;
+}
+
+#options > h1 {
+    margin:0;
+    padding:4px;
+    background-color:#AAA;
+}
+
+#options > form {
+    padding:4px;
+}
+
+#options legend {
+    font-weight:bold;
+}
