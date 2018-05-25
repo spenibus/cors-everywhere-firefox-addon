@@ -1,13 +1,14 @@
 //************************************************************* class definition
-let spenibus_corsEverywhere = {
+var spenibus_corsEverywhere = {
 
 
     /***************************************************************************
     props
     ***/
-    enabled       : false
-    ,prefs        : {} // holds user prefs
-    ,transactions : {} // contains requests/responses
+    enabled                     : false
+    ,activationWhitelistEnabled : false
+    ,prefs                      : {} // holds user prefs
+    ,transactions               : {} // contains requests/responses
 
 
     /***************************************************************************
@@ -21,16 +22,9 @@ let spenibus_corsEverywhere = {
         });
 
         // load prefs
-        browser.storage.sync.get([
-            'enabledAtStartup',
-            'staticOrigin',
-        ]).then((res) => {
-
-            // get prefs, set default value if n/a
-            this.prefs.enabledAtStartup = res.enabledAtStartup || false;
-            this.prefs.staticOrigin     = res.staticOrigin     || '';
-
-            if(this.prefs.enabledAtStartup) {
+        spenibus_corsEverywhere.loadPrefs(function(){
+            // enact enabled at startup
+            if(spenibus_corsEverywhere.prefs.enabledAtStartup) {
                 spenibus_corsEverywhere.toggle(true);
             }
 
@@ -95,17 +89,63 @@ let spenibus_corsEverywhere = {
 
 
     /***************************************************************************
+    re/load preferences
+    Because fetching prefs returns a promise, we use a callback to do stuff when
+    the promise is fullfilled.
+    ***/
+    ,loadPrefs : function(callback) {
+
+        browser.storage.sync.get([
+            'enabledAtStartup',
+            'staticOrigin',
+            'activationWhitelist',
+        ]).then((res) => {
+
+            // get prefs, set default value if n/a
+            spenibus_corsEverywhere.prefs.enabledAtStartup    = res.enabledAtStartup    || false;
+            spenibus_corsEverywhere.prefs.staticOrigin        = res.staticOrigin        || '';
+            spenibus_corsEverywhere.prefs.activationWhitelist = res.activationWhitelist || '';
+
+            // parse activation whitelist
+            spenibus_corsEverywhere.prefs.activationWhitelist = spenibus_corsEverywhere.prefs.activationWhitelist
+                ? spenibus_corsEverywhere.prefs.activationWhitelist.split(/[\r\n]+/)
+                : [];
+
+            spenibus_corsEverywhere.activationWhitelistEnabled = spenibus_corsEverywhere.prefs.activationWhitelist.length > 0
+                ? true
+                : false;
+
+            if(callback) {
+                callback();
+            }
+        });
+
+        return this;
+    }
+
+
+    /***************************************************************************
     updateButton
     ***/
     ,updateButton : function() {
-        let buttonStatus = spenibus_corsEverywhere.enabled ? 'on' : 'off';
-        browser.browserAction.setIcon({path:{48:'media/button-48-'+buttonStatus+'.png'}});
 
-        // button tooltip text
-        let str = spenibus_corsEverywhere.enabled
+        // icon
+        let buttonStatus = spenibus_corsEverywhere.enabled ? 'on' : 'off';
+
+        // tooltip text
+        let buttonTitle = spenibus_corsEverywhere.enabled
             ? 'CorsE enabled, CORS rules are bypassed'
             : 'CorsE disabled, CORS rules are followed';
-        browser.browserAction.setTitle({title:str});
+
+        // using activation whitelist while enabled
+        if(spenibus_corsEverywhere.enabled && spenibus_corsEverywhere.activationWhitelistEnabled) {
+            buttonStatus =  'on-filter';
+            buttonTitle  += ' (using activation whitelist)';
+        }
+
+        // proceed
+        browser.browserAction.setIcon({path:{48:'media/button-48-'+buttonStatus+'.png'}});
+        browser.browserAction.setTitle({title:buttonTitle});
 
         return this;
     }
