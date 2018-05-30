@@ -25,7 +25,12 @@ Usage
 
 The addon's functionality can be toggled with the included button and is disabled by default.
 The button can be found by right-clicking a toolbar and choosing `customize`.
-It is labelled `CorsE` with a red background that turns green when enabled.
+It is labelled `CorsE` and has 3 states:
+
+ - red, addon is disabled, CORS rules are upheld.
+ - green, addon is enabled, CORS rules are bypassed.
+ - green/red, addon is enabled and using the activation whitelist,
+   CORS rules are bypassed when the origin url matches a filter in the whitelist.
 
 A basic [CORS][6] test is available in the repository at `./_test/cors-everywhere-test.html`.
 
@@ -37,11 +42,11 @@ Options
 
 Available in about:addons.
 
-- `Enabled at startup`
+ - `Enabled at startup`
    Enables this addon on startup.
-- `Force value of "access-control-allow-origin"`
+ - `Force value of "access-control-allow-origin"`
    Self explanatory.
-- `Activation whitelist`
+ - `Activation whitelist`
    When the addon is enabled, this will check the origin url against the whitelist
    to decide if headers will be modified. Uses regular expressions.
 
