@@ -2,7 +2,7 @@
     "manifest_version" : 2
 
     ,"name"        : "CORS Everywhere"
-    ,"version"     : "18.5.30.1857"
+    ,"version"     : "18.5.30.1913"
     ,"author"      : "spenibus"
     ,"description" : "Bypass CORS restrictions by altering http responses."
 
@@ -18,11 +18,10 @@
     }
 
     ,"browser_action" : {
-         "default_title" : "CorsE"
+         "default_title" : "CORS Everywhere"
         ,"default_icon"  : {
             "48" : "media/button-48.png"
         }
-        ,"default_title" : "CORS Everywhere"
     }
 
     ,"options_ui" : {
