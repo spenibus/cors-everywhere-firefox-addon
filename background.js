@@ -192,74 +192,100 @@ var spenibus_corsEverywhere = {
         // get transaction
         let transaction = spenibus_corsEverywhere.transactions[response.requestId];
 
-        // store transaction response
-        transaction.response = response;
+        // processing flag
+        let doProcess = true;
 
-        // shorthand access to response headers
-        for(let header of response.responseHeaders) {
-            transaction.responseHeaders[header.name.toLowerCase()] = header;
+        // check activation whitelist
+        if(spenibus_corsEverywhere.activationWhitelistEnabled) {
+
+            // disable flag
+            doProcess = false;
+
+            for(let filter of spenibus_corsEverywhere.prefs.activationWhitelist) {
+
+                // looks like I don't need to do any escaping, cool
+                let pattern = filter.match(/^\/(.*)\/([a-z]*)$/i);
+                pattern = new RegExp(pattern[1], pattern[2]);
+
+                // stop at first match, enable f1ag
+                if(transaction.request.originUrl.match(pattern)) {
+                    doProcess = true;
+                    break;
+                }
+            }
         }
 
-        // create response headers if necessary
-        for(let name of [
-             'access-control-allow-origin'
-            ,'access-control-allow-methods'
-            ,'access-control-allow-headers'
-            ,'access-control-allow-credentials'
-        ]) {
-            // header exists, skip
-            if(transaction.responseHeaders[name]) {
-                continue;
+        // modify the headers
+        if(doProcess) {
+
+            // store transaction response
+            transaction.response = response;
+
+            // shorthand access to response headers
+            for(let header of response.responseHeaders) {
+                transaction.responseHeaders[header.name.toLowerCase()] = header;
             }
 
-            // create header
-            let header = {
-                 name  : name
-                ,value : "null"
-            };
+            // create response headers if necessary
+            for(let name of [
+                 'access-control-allow-origin'
+                ,'access-control-allow-methods'
+                ,'access-control-allow-headers'
+                ,'access-control-allow-credentials'
+            ]) {
+                // header exists, skip
+                if(transaction.responseHeaders[name]) {
+                    continue;
+                }
 
-            // update response
-            transaction.response.responseHeaders.push(header)
+                // create header
+                let header = {
+                     name  : name
+                    ,value : "null"
+                };
 
-            // update shorthand
-            transaction.responseHeaders[name] = header;
+                // update response
+                transaction.response.responseHeaders.push(header)
+
+                // update shorthand
+                transaction.responseHeaders[name] = header;
+            }
+
+            // set "access-control-allow-origin", prioritize "origin" else "*"
+            transaction.responseHeaders['access-control-allow-origin'].value =
+                transaction.requestHeaders['origin']
+                && transaction.requestHeaders['origin'].value !== null
+                    ? transaction.requestHeaders['origin'].value
+                    : '*';
+
+            // set "access-control-allow-methods"
+            if(
+                transaction.requestHeaders['access-control-request-method']
+                && transaction.requestHeaders['access-control-request-method'].value !== null
+            ) {
+                transaction.responseHeaders['access-control-allow-methods'].value =
+                    transaction.requestHeaders['access-control-request-method'].value
+            }
+
+            // set "access-control-allow-headers"
+            if(
+                transaction.requestHeaders['access-control-request-headers']
+                && transaction.requestHeaders['access-control-request-headers'].value !== null
+            ) {
+                transaction.responseHeaders['access-control-allow-headers'].value =
+                    transaction.requestHeaders['access-control-request-headers'].value
+            }
+
+            // set "access-control-allow-credentials"
+            transaction.responseHeaders['access-control-allow-credentials'].value = "true";
         }
-
-        // set "access-control-allow-origin", prioritize "origin" else "*"
-        transaction.responseHeaders['access-control-allow-origin'].value =
-            transaction.requestHeaders['origin']
-            && transaction.requestHeaders['origin'].value !== null
-                ? transaction.requestHeaders['origin'].value
-                : '*';
-
-        // set "access-control-allow-methods"
-        if(
-            transaction.requestHeaders['access-control-request-method']
-            && transaction.requestHeaders['access-control-request-method'].value !== null
-        ) {
-            transaction.responseHeaders['access-control-allow-methods'].value =
-                transaction.requestHeaders['access-control-request-method'].value
-        }
-
-        // set "access-control-allow-headers"
-        if(
-            transaction.requestHeaders['access-control-request-headers']
-            && transaction.requestHeaders['access-control-request-headers'].value !== null
-        ) {
-            transaction.responseHeaders['access-control-allow-headers'].value =
-                transaction.requestHeaders['access-control-request-headers'].value
-        }
-
-        // set "access-control-allow-credentials"
-        transaction.responseHeaders['access-control-allow-credentials'].value = "true";
 
         // delete transaction
         delete spenibus_corsEverywhere.transactions[response.requestId];
 
-        // apply modifications
+        // return headers
         return {
             responseHeaders: transaction.response.responseHeaders
-            ,statusCode : 777
         };
     }
 };

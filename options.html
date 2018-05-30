@@ -22,12 +22,13 @@
                     <input type="text" id="staticOrigin" placeholder="disabled">
                 </fieldset>
                 <fieldset>
-                    <legend>Activation whitelist [UNDER DEVELOPMENT]</legend>
+                    <legend>Activation whitelist</legend>
                     <div>
-                        Specify on which host url the addon will activate.
+                        Specify on which origin url the addon will activate.
                         Default is empty and activates everywhere.
                         One filter per line.
                         This uses regular expressions (ex: /^https?...localhost:8080\//i).
+                        The addon must still be enabled first.
                     </div>
                     <textarea rows="5" style="width:100%;" placeholder="no filter" id="activationWhitelist"></textarea>
                 </fieldset>

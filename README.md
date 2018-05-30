@@ -32,13 +32,18 @@ A basic [CORS][6] test is available in the repository at `./_test/cors-everywher
 Intended for developers. Use at your own risk.
 
 
-Preferences
------------
+Options
+-------
 
 Available in about:addons.
 
-- `enabledAtStartup` : Enables this addon on startup
-- `staticOrigin`     : Forces the value of the `Origin` header
+- `Enabled at startup`
+   Enables this addon on startup.
+- `Force value of "access-control-allow-origin"`
+   Self explanatory.
+- `Activation whitelist`
+   When the addon is enabled, this will check the origin url against the whitelist
+   to decide if headers will be modified. Uses regular expressions.
 
 
 FAQ
