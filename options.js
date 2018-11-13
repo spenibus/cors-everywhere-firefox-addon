@@ -25,10 +25,10 @@ function restoreOptions() {
         document.querySelector('#enabledAtStartup').checked = res.enabledAtStartup || false;
     });
     browser.storage.sync.get('staticOrigin').then((res) => {
-        document.querySelector('#staticOrigin').value = res.staticOrigin;
+        document.querySelector('#staticOrigin').value = res.staticOrigin || '';
     });
     browser.storage.sync.get('activationWhitelist').then((res) => {
-        document.querySelector('#activationWhitelist').value = res.activationWhitelist;
+        document.querySelector('#activationWhitelist').value = res.activationWhitelist || '';
     });
 }
 
