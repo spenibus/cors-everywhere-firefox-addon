@@ -27,9 +27,9 @@ The addon's functionality can be toggled with the included button and is disable
 The button can be found by right-clicking a toolbar and choosing `customize`.
 It is labelled `CorsE` and has 3 states:
 
- - red, addon is disabled, CORS rules are upheld.
- - green, addon is enabled, CORS rules are bypassed.
- - green/red, addon is enabled and using the activation whitelist,
+ - ![](media/button-48-on.png) red, addon is disabled, CORS rules are upheld.
+ - ![](media/button-48-off.png) green, addon is enabled, CORS rules are bypassed.
+ - ![](media/button-48-on-filter.png) green/red, addon is enabled and using the activation whitelist,
    CORS rules are bypassed when the origin url matches a filter in the whitelist.
 
 A basic [CORS][6] test is available in the repository at `./_test/cors-everywhere-test.html`.
