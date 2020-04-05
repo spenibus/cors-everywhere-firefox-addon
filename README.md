@@ -75,5 +75,5 @@ FAQ
  [6]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
  [7]: https://developer.mozilla.org/en-US/Add-ons/Overlay_Extensions/XUL_School/Intercepting_Page_Loads
  [8]: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials
- [9]: /issues/15
-[10]: /issues/32
+ [9]: ../../issues/15
+[10]: ../../issues/32
