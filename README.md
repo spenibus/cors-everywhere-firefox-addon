@@ -23,7 +23,7 @@ Note
  - This addon is now a WebExtension.
  - Android is untested therefore not officialy supported.
    [Android platform support #15][9]
- - Since Firefox 74.0, the addon can not operate on local files.
+ - In Firefox 74.0, the addon can not operate on local files (using the file:/// protocol). This is apparently fixed in 75.0.
    [Firefox 74.0 #32][10]
 
 
