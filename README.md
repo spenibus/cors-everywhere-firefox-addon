@@ -21,7 +21,7 @@ Note
    It merely alters http requests to make the browser believe the server has answered favorably.
    This means the http requests have to be valid and follow the CORS rules.
  - This addon is now a WebExtension.
- - Android is untested therefore not officialy supported.
+ - Android is untested therefore not officially supported.
    [Android platform support #15][9]
  - In Firefox 74.0, the addon can not operate on local files (using the file:/// protocol). This is apparently fixed in 75.0.
    [Firefox 74.0 #32][10]
