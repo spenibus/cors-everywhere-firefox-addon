@@ -24,20 +24,30 @@
             <br /><a href="https://gitlab.com/spenibus/cors-everywhere-firefox-addon">https://gitlab.com/spenibus/cors-everywhere-firefox-addon</a>
         </p>
 
+        <div style="padding:4px; border:1px solid #000;">
+            <input type="text" id="testUrl" style="width:80%" value="http://google.com"/>
+            <button type="button" id="testButton">Test url</button>
+        </div>
         <div id="response" style="padding:4px; border:1px solid #000;">
             waiting for xmlHttpRequest
         </div>
 
         <script type="text/javascript">
-            var xhr = new XMLHttpRequest();
-            xhr.open("get", "http://google.com", true);
-            xhr.withCredentials = true;
-            xhr.onreadystatechange = function(r) {
-                document.getElementById("response").innerHTML +=
-                    "<hr />readyState: "+r.target.readyState+
-                    "<br />status: "+r.target.status;
-            }
-            xhr.send();
+function doTest(){
+    document.getElementById("response").innerHTML = '';
+    let testUrl = document.getElementById('testUrl').value;
+    console.log(testUrl);
+    let xhr = new XMLHttpRequest();
+    xhr.open("get", testUrl, true);
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = function(r) {
+        document.getElementById("response").innerHTML +=
+            "<hr />readyState: "+r.target.readyState+
+            "<br />status: "+r.target.status;
+    }
+    xhr.send();
+}
+document.getElementById('testButton').addEventListener('click', doTest);
         </script>
     </body>
 </html>
