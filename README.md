@@ -63,9 +63,18 @@ FAQ
 
  - The addon is enabled but the requests return content as if no user was logged in the target domain.
    Try using [withCredentials][8].
-
-
-
+ - Localhost CORS requests over HTTPS may fail with `An error occurred: SEC_ERROR_UNKNOWN_ISSUER` in the Security tab of the Network tab in Dev Tools.
+   This can happen when developing both a web server on localhost and a "back-end" server also on localhost, but at a different port.
+   A certificate exception is required for both localhost ports.
+   Example: if your web server is https://localhost:3000/ then you've already added a certificate exception for the web server or you couldn't be debugging it or making CORS requests from it.
+   But you'll *also* need to add a separate cert exception for your localhost "back-end" server's port, e.g. https://localhost:4000/.
+   An easy way to do this is:
+   -  Right-click on the failed CORS request in Dev Tools.
+   -  Choose "Open in New Tab".
+   -  You'll see the usual Warning: Potential Security Risk Ahead" page.
+   -  Click "Advanced".
+   -  Click "Accept the Risk and Continue" to add the certificate exception.
+   -  Your localhost CORS requests will now work over TLS (aka SSL).
 
  [1]: http://spenibus.net
  [2]: https://github.com/spenibus/cors-everywhere-firefox-addon
