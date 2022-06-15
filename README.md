@@ -76,10 +76,10 @@ FAQ
    -  Click "Accept the Risk and Continue" to add the certificate exception.
    -  Your localhost CORS requests will now work over TLS (aka SSL).
 
- [1]: http://spenibus.net
+ [1]: https://spenibus.net
  [2]: https://github.com/spenibus/cors-everywhere-firefox-addon
  [3]: https://gitlab.com/spenibus/cors-everywhere-firefox-addon
- [4]: http://spenibus.net/files/gitbin/cors-everywhere-firefox-addon/
+ [4]: https://spenibus.net/files/gitbin/cors-everywhere-firefox-addon/
  [5]: https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/
  [6]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
  [7]: https://developer.mozilla.org/en-US/Add-ons/Overlay_Extensions/XUL_School/Intercepting_Page_Loads
